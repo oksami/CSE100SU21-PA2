@@ -29,11 +29,11 @@ class DictionaryTrie {
     }
     
     TSTNode* newTSTNode(char inp){
-        TSTNode* node = new TSTNode;
+        struct TSTNode* node = new TSTNode;
         node->data = inp;
         node->bword = false;
         node->fr = 0;
-        node->left = node->mid = node->right = nullptr;
+        node->left = node->mid = node->right = NULL;
         return node;
     }
   public:
