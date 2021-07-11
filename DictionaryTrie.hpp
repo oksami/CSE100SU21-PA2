@@ -19,6 +19,23 @@ using namespace std;
 class DictionaryTrie {
   private:
     // TODO: add private members and helper methods here
+    struct TSTNode{
+        char data;
+        bool bword;
+        unsigned int fr;
+        struct TSTNode* left;
+        struct TSTNode* mid;
+        struct TSTNode* right;
+    }
+    
+    TSTNode* newTSTNode(char inp){
+        TSTNode* node = new TSTNode;
+        node->data = inp;
+        node->bword = false;
+        node->fr = 0;
+        node->left = node->mid = node->right = nullptr;
+        return node;
+    }
   public:
     /* TODO: add function header */
     DictionaryTrie();
