@@ -1,7 +1,7 @@
 /**
  * TODO: File Header
  *
- * Author:
+ * Author: Samhita Kadali
  */
 #include "DictionaryTrie.hpp"
 #include <iostream>
