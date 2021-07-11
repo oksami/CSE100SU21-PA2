@@ -1,7 +1,7 @@
 /**
  * TODO: File Header
  *
- * Author:
+ * Author: Samhita Kadali
  */
 #ifndef DICTIONARY_TRIE_HPP
 #define DICTIONARY_TRIE_HPP
