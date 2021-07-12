@@ -28,9 +28,9 @@ class DictionaryTrie {
             char const data;
             bool bword;
             unsigned int fr;
-            struct TSTNode* left;
-            struct TSTNode* mid;
-            struct TSTNode* right;
+            TSTNode* left;
+            TSTNode* mid;
+            TSTNode* right;
 
     };
   public:
