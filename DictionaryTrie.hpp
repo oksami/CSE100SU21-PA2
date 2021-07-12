@@ -12,6 +12,20 @@
 
 using namespace std;
 
+  class TSTNode{
+      public:
+          TSTNode(char d): data(d){
+              bword = false;
+              f = 0;
+              left = mid = right = NULL;
+          }
+              char data;
+              bool bword;
+              unsigned int f;
+              TSTNode* left;
+              TSTNode* mid;
+              TSTNode* right;
+      };
 /**
  * The class for a dictionary ADT, implemented as either
  * a mulit-way trie or a ternary search tree.
@@ -19,21 +33,12 @@ using namespace std;
 class DictionaryTrie {
   private:
     // TODO: add private members and helper methods here
-    class TSTNode{             //private nested Node class
-        TSTNode (const char & inp): data(inp){
-            node->bword = false;
-            node->fr = 0;
-            node->left = node->mid = node->right = NULL;
-        }
-            char const data;
-            bool bword;
-            unsigned int fr;
-            TSTNode* left;
-            TSTNode* mid;
-            TSTNode* right;
+    TSTNode* root;
+    
+public:
+    
+    vector<string> traverse(string pref);
 
-    };
-  public:
     /* TODO: add function header */
     DictionaryTrie();
 
