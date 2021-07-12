@@ -45,10 +45,10 @@ public:
                 if(node.left)
                     node = node->left;
                 else{
-                    node->left = newTSTNode*(letter)
+                    node->left = new TSTNode*(letter)
                     node = node->left;
                     for (char c: word.substr(1,word.length())){
-                        node->mid = newTSTNode*(c);
+                        node->mid = new TSTNode*(c);
                         node = node->mid;
                     }
                     node->bword = true;
@@ -61,10 +61,10 @@ public:
                 if (node->right)
                     node = node->right;
                 else{
-                    node->right = newTSTNode*(letter);
+                    node->right = new TSTNode*(letter);
                     node = node->right;
                     for (char c: word.substr(1,word.length())){
-                        node->mid = newTSTNode*(c);
+                        node->mid = new TSTNode*(c);
                         node = node->mid;
                     }
                     node->bword = true;
@@ -80,7 +80,7 @@ public:
                 }
                 else{
                     for (char c: word.substr(1,word.length())){
-                        node->mid = newTSTNode*(c);
+                        node->mid = new TSTNode*(c);
                         node = node->mid;
                     }
                     node->bword = true;
@@ -93,7 +93,7 @@ public:
 
     /* TODO */
     bool DictionaryTrie::find(string word) const {
-        TSTNode* node = newTSTNode(root);
+        TSTNode* node = new TSTNode(root);
         int i = 0;
         char letter = word[i];
         while(true){

@@ -19,7 +19,7 @@ using namespace std;
 class DictionaryTrie {
   private:
     // TODO: add private members and helper methods here
-    class Node{             //private nested Node class
+    class TSTNode{             //private nested Node class
         TSTNode (const char & inp): data(inp){
             node->bword = false;
             node->fr = 0;
@@ -32,7 +32,7 @@ class DictionaryTrie {
             struct TSTNode* mid;
             struct TSTNode* right;
 
-    }
+    };
   public:
     /* TODO: add function header */
     DictionaryTrie();
