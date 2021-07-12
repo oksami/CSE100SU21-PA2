@@ -19,22 +19,19 @@ using namespace std;
 class DictionaryTrie {
   private:
     // TODO: add private members and helper methods here
-    struct TSTNode{
-        char data;
-        bool bword;
-        unsigned int fr;
-        struct TSTNode* left;
-        struct TSTNode* mid;
-        struct TSTNode* right;
-    }
-    
-    TSTNode* newTSTNode(char inp){
-        struct TSTNode* node = new TSTNode;
-        node->data = inp;
-        node->bword = false;
-        node->fr = 0;
-        node->left = node->mid = node->right = NULL;
-        return node;
+    class Node{             //private nested Node class
+        TSTNode (const char & inp): data(inp){
+            node->bword = false;
+            node->fr = 0;
+            node->left = node->mid = node->right = NULL;
+        }
+            char const data;
+            bool bword;
+            unsigned int fr;
+            struct TSTNode* left;
+            struct TSTNode* mid;
+            struct TSTNode* right;
+
     }
   public:
     /* TODO: add function header */

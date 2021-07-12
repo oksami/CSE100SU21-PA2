@@ -10,24 +10,24 @@ protected:
 
    /** Pointer to the root of this TST, or 0 if the TST is empty */
    TSTNode* root;
-//i think this is bfs?
-vector<string> traverse(string pref){
-    vector<string> tresult;
-    queue< pair< TSTNode*, pair< string, bool>>> q;
-    TSTNode* node = root;
-    q.push({node, {pref, true}});
-    while(!qu.empty()){
-        TSTNode* node = q.front().first;
-        string pref = q.front().second.first;
-        bool valid = q.front().second.second;
-        q.pop();
-        if(node->bword==true && valid==true)
-            tresult.push_back(pref);
-        if(node->left) q.push({node->left, {pref, 0}});
-        if(node->mid) q.push({node->mid, {pref+node->data, 1}});
-        if(node->right) q.push({node->right, {pref, 0}});
-    }
-    return tresult;
+    //i think this is bfs?
+    vector<string> traverse(string pref){
+        vector<string> tresult;
+        queue< pair< TSTNode*, pair< string, bool>>> q;
+        TSTNode* node = root;
+        q.push({node, {pref, true}});
+        while(!qu.empty()){
+            TSTNode* node = q.front().first;
+            string pref = q.front().second.first;
+            bool valid = q.front().second.second;
+            q.pop();
+            if(node->bword==true && valid==true)
+                tresult.push_back(pref);
+            if(node->left) q.push({node->left, {pref, 0}});
+            if(node->mid) q.push({node->mid, {pref+node->data, 1}});
+            if(node->right) q.push({node->right, {pref, 0}});
+        }
+        return tresult;
 }
 public:
     /* TODO */
