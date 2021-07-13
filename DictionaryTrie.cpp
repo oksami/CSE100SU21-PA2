@@ -40,7 +40,7 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
         char letter = word[i];
         //check if empty --> insert first letter as root
         if(root == nullptr) root = new TSTNode(letter);
-      
+//cout << letter;
         //in any case, start at root
         node = root;
         
@@ -52,8 +52,11 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                     node = node->left;
                 else{
                     node->left = new TSTNode(letter);
+//cout << letter;
                     node = node->left;
-                    for (letter: word.substr(i)){   //remaining letters NOT including first
+                    for (char c: word.substr(i)){   //remaining letters NOT including first
+                        c = letter;
+                        cout << letter;
                         node->mid = new TSTNode(letter);
                         node = node->mid;
                     }
@@ -68,8 +71,11 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                     node = node->right;
                 else{
                     node->right = new TSTNode(letter);
+//cout << letter;
                     node = node->right;
-                    for (letter: word.substr(i)){
+                    for (char c: word.substr(i)){
+                        c = letter;
+                        cout << letter;
                         node->mid = new TSTNode(letter);
                         node = node->mid;
                     }
@@ -90,7 +96,9 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                         letter = word[i++];
                     }
                     else{
-                        for (letter: word.substr(i)){
+                        for (char c: word.substr(i)){
+                            c = letter;
+                            cout << letter;
                             node->mid = new TSTNode(letter);
                             node = node->mid;
                         }
