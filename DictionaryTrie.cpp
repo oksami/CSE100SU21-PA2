@@ -36,9 +36,14 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
     /* TODO */
     bool DictionaryTrie::insert(string word, unsigned int freq) {
         TSTNode* node;
-        char letter = word[0];
+        int i = 0;
+        char letter = word[i];
+        //check if empty --> insert first letter as root
         if(root == nullptr) root = new TSTNode(letter);
+      
+        //in any case, start at root
         node = root;
+        
         //loop infinitely
         while(true){
             //left child
@@ -48,12 +53,12 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                 else{
                     node->left = new TSTNode(letter);
                     node = node->left;
-                    for (char c: word.substr(1,word.length())){
-                        node->mid = new TSTNode(c);
+                    for (letter: word.substr(i)){   //remaining letters NOT including first
+                        node->mid = new TSTNode(letter);
                         node = node->mid;
                     }
-                    node->bword = true;
-                    node->f = freq;
+                    node->bword = true; //label last node as a word-node
+                    node->f = freq;     //attach frequency to last node
                     break;
                 }
             }
@@ -64,8 +69,8 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                 else{
                     node->right = new TSTNode(letter);
                     node = node->right;
-                    for (char c: word.substr(1,word.length())){
-                        node->mid = new TSTNode(c);
+                    for (letter: word.substr(i)){
+                        node->mid = new TSTNode(letter);
                         node = node->mid;
                     }
                     node->bword = true;
@@ -80,13 +85,19 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                     return true;
                 }
                 else{
-                    for (char c: word.substr(1,word.length())){
-                        node->mid = new TSTNode(c);
+                    if(node->mid){
                         node = node->mid;
+                        letter = word[i++];
                     }
-                    node->bword = true;
-                    node->f = freq;
-                    break;
+                    else{
+                        for (letter: word.substr(i)){
+                            node->mid = new TSTNode(letter);
+                            node = node->mid;
+                        }
+                        node->bword = true;
+                        node->f = freq;
+                        break;
+                    }
                 }
             }
         }
