@@ -26,6 +26,7 @@ int main(int argc, char** argv)
         return 1;
     }
 
+    //create a new Dictionary Trie
     DictionaryTrie* dt = new DictionaryTrie();;
 
     // Read all the tokens of the file in order to get every word
@@ -35,7 +36,7 @@ int main(int argc, char** argv)
     in.open(argv[1], ios::binary);
     string word;
 
-
+    //loading words in file into dictionary - INSERT METHOD
     Utils::load_dict(*dt, in);
     in.close();
 
@@ -50,13 +51,16 @@ int main(int argc, char** argv)
         cin >> numberOfCompletions;
 
         vector<string> completions;
+        //use predictCompletions method
         completions = dt->predictCompletions(word, numberOfCompletions);
-
+        
+        //print out every string in return vector from predictCompletions
         for (string s : completions)
         {
             cout << s << endl;
         }
 
+        //another prefix
         cout << "Continue? (y/n)" << endl;
         cin >> cont;
         cin.ignore();

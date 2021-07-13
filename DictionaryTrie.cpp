@@ -35,9 +35,10 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
      }
     /* TODO */
     bool DictionaryTrie::insert(string word, unsigned int freq) {
-        TSTNode* node = root;
+        TSTNode* node;
         char letter = word[0];
-        
+        if(root == nullptr) root = new TSTNode(letter);
+        node = root;
         //loop infinitely
         while(true){
             //left child
