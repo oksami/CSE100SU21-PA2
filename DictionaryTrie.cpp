@@ -22,6 +22,7 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
          q.push({node, {pref, true}});
          while(!q.empty()){
              TSTNode* node = q.front().first;
+             cout << node->data;
              string pref = q.front().second.first;
              bool valid = q.front().second.second;
              q.pop();
@@ -36,11 +37,9 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
     /* TODO */
     bool DictionaryTrie::insert(string word, unsigned int freq) {
         TSTNode* node;
-        int i = 0;
-        char letter = word[i];
+        char letter = word[0];
         //check if empty --> insert first letter as root
         if(root == nullptr) root = new TSTNode(letter);
-//cout << letter;
         //in any case, start at root
         node = root;
         
@@ -52,12 +51,10 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                     node = node->left;
                 else{
                     node->left = new TSTNode(letter);
-//cout << letter;
                     node = node->left;
-                    for (char c: word.substr(i)){   //remaining letters NOT including first
-                        c = letter;
-                        cout << letter;
-                        node->mid = new TSTNode(letter);
+                    
+                    for (char & c: word.substr(1)){   //remaining letters NOT including first
+                        node->mid = new TSTNode(c);
                         node = node->mid;
                     }
                     node->bword = true; //label last node as a word-node
@@ -71,12 +68,10 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                     node = node->right;
                 else{
                     node->right = new TSTNode(letter);
-//cout << letter;
                     node = node->right;
-                    for (char c: word.substr(i)){
-                        c = letter;
-                        cout << letter;
-                        node->mid = new TSTNode(letter);
+                    
+                    for (char & c: word.substr(1)){
+                        node->mid = new TSTNode(c);
                         node = node->mid;
                     }
                     node->bword = true;
@@ -93,13 +88,11 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                 else{
                     if(node->mid){
                         node = node->mid;
-                        letter = word[i++];
+                        letter = word[1];
                     }
                     else{
-                        for (char c: word.substr(i)){
-                            c = letter;
-                            cout << letter;
-                            node->mid = new TSTNode(letter);
+                        for (char & c: word.substr(1)){
+                            node->mid = new TSTNode(c);
                             node = node->mid;
                         }
                         node->bword = true;
@@ -130,7 +123,7 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                     return false;
             }
             else{
-                if(letter = word.back() && node->bword == true)
+                if(letter == word.back() && node->bword == true)
                     return true;
                 else{
                     if(node->mid && letter != word.back()){
@@ -162,7 +155,8 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                 node = node->right;
             else node = node->left;
         }
-        return traverse(prefix);
+        //return traverse(prefix);
+        return NULL;
     }
 
     /* TODO */
