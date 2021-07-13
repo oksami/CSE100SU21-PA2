@@ -155,8 +155,7 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                 node = node->right;
             else node = node->left;
         }
-        //return traverse(prefix);
-        return NULL;
+        return traverse(prefix);
     }
 
     /* TODO */
