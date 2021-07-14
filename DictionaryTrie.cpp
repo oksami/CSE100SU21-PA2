@@ -7,6 +7,7 @@
 #include "DictionaryTrie.hpp"
 #include <iostream>
 #include <queue>
+#include <stack>
 //protected:
     /** Pointer to the root of this TST, or 0 if the TST is empty */
     
@@ -15,10 +16,10 @@
 DictionaryTrie::DictionaryTrie() {root = nullptr;}
 
      //i think this is bfs?
-     vector<string> DictionaryTrie::traverse(string pref){
+     vector<string> DictionaryTrie::traverse(TSTNode* inp, string pref){
          vector<string> tresult;
          queue< pair< TSTNode*, pair< string, bool>>> q;
-         TSTNode* node = root;
+         TSTNode* node = inp;
          q.push({node, {pref, true}});
          while(!q.empty()){
              TSTNode* node = q.front().first;
@@ -28,9 +29,9 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
              q.pop();
              if(node->bword==true && valid==true)
                  tresult.push_back(pref);
-             if(node->left) q.push({node->left, {pref, 0}});
-             if(node->mid) q.push({node->mid, {pref+node->data, 1}});
-             if(node->right) q.push({node->right, {pref, 0}});
+             if(node->left) q.push({node->left, {pref, false}});
+             if(node->mid) q.push({node->mid, {pref+node->data, true}});
+             if(node->right) q.push({node->right, {pref, false}});
          }
          return tresult;
      }
@@ -137,12 +138,12 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
         }
     }
 
+
     /* TODO */
     vector<string> DictionaryTrie::predictCompletions(string prefix,
                                                       unsigned int numCompletions) {
         vector<string> result;
         TSTNode* node = root;
-        int l = prefix.length();
         int i = 0;
         while(i<prefix.length()){
             if(node==NULL) return result;
@@ -151,11 +152,10 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                 i++;
                 continue;
             }
-            if(node->data < prefix[i])
-                node = node->right;
+            if(node->data < prefix[i]) node = node->right;
             else node = node->left;
         }
-        return traverse(prefix);
+        return traverse(node, prefix);
     }
 
     /* TODO */
