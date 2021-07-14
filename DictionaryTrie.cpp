@@ -6,7 +6,10 @@
 #ifndef DICTIONARYTRIE_CPP
 #include "DictionaryTrie.hpp"
 #include <iostream>
+#include <functional>
+#include <utility>
 #include <queue>
+#include <algorithm>
 #include <stack>
 #include <string>
 #include <vector>
@@ -21,7 +24,10 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
     TSTNode* DictionaryTrie::start(TSTNode* node, string prefix){
         TSTNode* track = node;
         int i = 0;
+        
+        //only following the tree up until the last character of the prefix
         while(i<prefix.length()){
+            
             if(prefix[i] < node->data)
                 track = node->left;
             if(prefix[i] > node->data)
@@ -35,21 +41,60 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                 }
             }
         }
-        return track;   //should i keep???
+        return track;   //should i keep??? or is the above return statement enough?
     }
 
-    vector<string> DictionaryTrie::traverse(TSTNode* node){
+    //find all suffixes of the prefix and insert into vector of that ENTIRE string and its frequency
+    vector<pair<int, string>> DictionaryTrie::suffixes(TSTNode* node, string prefix){
         
+        //initialize value to be returned
+        vector<pair<int, string>> insert;
+        
+        //word to be inserted
+        string word = prefix;
+        
+        //go through left subtree
+        if(node->left) suffixes(node->left, prefix);
+        
+        //go through right subtree
+        if(node->right) suffixes(node->right, prefix);
+        
+        if(node->mid){
+            word += node->data;     //add suffix to prefix into word
+            if(node->mid->bword == true){   //if word-end, insert word
+                insert.push_back( make_pair( node->mid->f, word  ) );
+            }
+            suffixes(node->mid, word);    //continue down?
+        }
+        return insert;
+    }
+
+    
+    bool DictionaryTrie::pairComparison(const pair<string, int> &x, const pair<string, int> &y){
+        return x.second > y.second;
     }
 
     /* TODO */
     vector<string> DictionaryTrie::predictCompletions(string prefix,
                                                       unsigned int numCompletions) {
         vector<string> result;
-        TSTNode* start = start(root, prefix);
-        result.push_back(c);
-        return result;
+        TSTNode* startNode = start(root, prefix);   //find node to start at = last character of prefix
         
+        vector<pair<int, string>> suf = suffixes(startNode, prefix);    //string of every completion
+        
+        sort(suf.begin(), suf.end(), []( const pair<int, string> &x, const pair<int, string> &y )
+             {
+                 return ( x.second > y.second );
+             } );  //sorted in descending order
+        
+        //remove the least frequent, leaving only numCompletions
+        suf.erase(suf.begin()+numCompletions, suf.end());
+        
+        //copy the strings ONLY into the vector<string>
+        for(int i = 0; i < numCompletions; i++){
+            result[i] = suf[i].first;
+        }
+        return result;
     }
 
     /* TODO */

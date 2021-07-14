@@ -35,10 +35,15 @@ class DictionaryTrie {
     // TODO: add private members and helper methods here
     TSTNode* root;
     
+    
 public:
     
     TSTNode* start(TSTNode* node, string prefix);
 
+    vector<pair<int, string>> suffixes(TSTNode* node, string prefix);
+    
+    bool pairComparison(const pair<string, int> &x, const pair<string, int> &y);
+    
     /* TODO: add function header */
     DictionaryTrie();
 
