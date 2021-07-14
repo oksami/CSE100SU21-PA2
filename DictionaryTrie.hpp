@@ -37,7 +37,7 @@ class DictionaryTrie {
     
 public:
     
-    vector<string> traverse(TSTNode* inp, string pref);
+    TSTNode* traverse(TSTNode* node, string prefix);
 
     /* TODO: add function header */
     DictionaryTrie();
