@@ -17,56 +17,26 @@
     /* TODO */
 DictionaryTrie::DictionaryTrie() {root = nullptr;}
 
-//return end-node (last character of prefix)
-TSTNode* DictionaryTrie::traverse(TSTNode* node, string prefix){
-/*string tresult;
-       //  stack< pair< string, int> q;
-    string word;*/
-    TSTNode* track = node;
-    int i = 0;
-    while(i<prefix.length()){
-        if(prefix[i] < node->data)
-            track = node->left;
-        if(prefix[i] > node->data)
-            track = node->right;
-        else{
-            track = node->mid;
-            i++;
-            if(i == prefix.length()-1){
-                cout << track;
-                return track;
+    //return end-node (last character of prefix)
+    TSTNode* DictionaryTrie::start(TSTNode* node, string prefix){
+        TSTNode* track = node;
+        int i = 0;
+        while(i<prefix.length()){
+            if(prefix[i] < node->data)
+                track = node->left;
+            if(prefix[i] > node->data)
+                track = node->right;
+            else{
+                track = node->mid;
+                i++;
+                if(i == prefix.length()-1){
+                    cout << track;
+                    return track;
+                }
             }
         }
+        return track;   //should i keep???
     }
-    return track;
-}
-    
-    /*if(!node) return tresult;
-    if(node)  word.push_back(node->data);
-    if(node->bword == true) {   //if end
-        tresult.push_back(word);
-        cout << word;
-        word.clear();
-    }
-    if(node->left) traverse(node->left);
-    if(node->mid) traverse(node->mid);
-    if(node->right) traverse(node->right);
-    
-    return tresult;
-}
-         q.push({node, {pref, true}});
-         while(!q.empty()){
-             TSTNode* node = q.front().first;
-             cout << node->data;
-             string pref = q.front().second.first;
-             bool valid = q.front().second.second;
-             q.pop();
-             if(node->bword==true && valid==true)
-                 tresult.push_back(pref);
-             if(node->left) q.push({node->left, {pref, false}});
-             if(node->mid) q.push({node->mid, {pref+node->data, true}});
-             if(node->right) q.push({node->right, {pref, false}});
-         }*/
      
     /* TODO */
     bool DictionaryTrie::insert(string word, unsigned int freq) {
@@ -180,11 +150,12 @@ TSTNode* DictionaryTrie::traverse(TSTNode* node, string prefix){
     }
 
 
+
     /* TODO */
     vector<string> DictionaryTrie::predictCompletions(string prefix,
                                                       unsigned int numCompletions) {
         vector<string> result;
-        TSTNode* start = traverse(root, prefix);
+        TSTNode* start = start(root, prefix);
         string c = start->data + "--";
         cout << c;
         result.push_back(c);

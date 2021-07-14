@@ -37,7 +37,7 @@ class DictionaryTrie {
     
 public:
     
-    TSTNode* traverse(TSTNode* node, string prefix);
+    TSTNode* start(TSTNode* node, string prefix);
 
     /* TODO: add function header */
     DictionaryTrie();
