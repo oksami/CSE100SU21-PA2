@@ -16,7 +16,7 @@ using namespace std;
       public:
           TSTNode(char d): data(d){
               bword = false;
-              f = 0;
+              f = NULL;
               left = mid = right = NULL;
           }
               char data;

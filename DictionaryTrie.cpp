@@ -37,7 +37,21 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
         }
         return track;   //should i keep???
     }
-     
+
+    vector<string> DictionaryTrie::traverse(TSTNode* node){
+        
+    }
+
+    /* TODO */
+    vector<string> DictionaryTrie::predictCompletions(string prefix,
+                                                      unsigned int numCompletions) {
+        vector<string> result;
+        TSTNode* start = start(root, prefix);
+        result.push_back(c);
+        return result;
+        
+    }
+
     /* TODO */
     bool DictionaryTrie::insert(string word, unsigned int freq) {
         TSTNode* node;
@@ -151,17 +165,7 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
 
 
 
-    /* TODO */
-    vector<string> DictionaryTrie::predictCompletions(string prefix,
-                                                      unsigned int numCompletions) {
-        vector<string> result;
-        TSTNode* start = start(root, prefix);
-        string c = start->data + "--";
-        cout << c;
-        result.push_back(c);
-        return result;
-        
-    }
+    
 
     /* TODO */
     DictionaryTrie::~DictionaryTrie() {}
