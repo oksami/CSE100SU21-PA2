@@ -9,6 +9,7 @@
 #include <queue>
 #include <stack>
 #include <string>
+#include <vector>
 //protected:
     /** Pointer to the root of this TST, or 0 if the TST is empty */
     
@@ -37,6 +38,7 @@ TSTNode* DictionaryTrie::traverse(TSTNode* node, string prefix){
             }
         }
     }
+    return track;
 }
     
     /*if(!node) return tresult;
@@ -52,7 +54,6 @@ TSTNode* DictionaryTrie::traverse(TSTNode* node, string prefix){
     
     return tresult;
 }
-    /*
          q.push({node, {pref, true}});
          while(!q.empty()){
              TSTNode* node = q.front().first;
@@ -147,6 +148,7 @@ TSTNode* DictionaryTrie::traverse(TSTNode* node, string prefix){
     /* TODO */
     bool DictionaryTrie::find(string word) const {
         TSTNode* node = root;
+        if(!node) return false; //check if empty
         int i = 0;
         char letter = word[i];
         while(true){
@@ -168,7 +170,7 @@ TSTNode* DictionaryTrie::traverse(TSTNode* node, string prefix){
                 else{
                     if(node->mid && letter != word.back()){
                         node = node->mid;
-                        letter = word[i+1];
+                        letter = word[++i];
                     }
                     else
                         return false;
@@ -183,24 +185,11 @@ TSTNode* DictionaryTrie::traverse(TSTNode* node, string prefix){
                                                       unsigned int numCompletions) {
         vector<string> result;
         TSTNode* start = traverse(root, prefix);
-        cout << start->data;
+        string c = start->data + "--";
+        cout << c;
+        result.push_back(c);
         return result;
         
-        /*
-        TSTNode* node = root;
-        int i = 0;
-        while(i<prefix.length()){
-            if(node==NULL) return result;
-            if(node->data == prefix[i]){
-                node = node->mid;
-                i++;
-                continue;
-            }
-            if(node->data < prefix[i]) node = node->right;
-            if(node == nullptr) return result;
-            else node = node->left;
-        }
-        return traverse(node, prefix);*/
     }
 
     /* TODO */
