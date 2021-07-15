@@ -13,11 +13,8 @@
 #include <stack>
 #include <string>
 #include <vector>
-//protected:
-    /** Pointer to the root of this TST, or 0 if the TST is empty */
-    
-//public:
-    /* TODO */
+
+
 DictionaryTrie::DictionaryTrie() {root = nullptr;}
 
     //return end-node (last character of prefix)
@@ -36,7 +33,7 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
                 track = node->mid;
                 i++;
                 if(i == prefix.length()-1){
-                    cout << track;
+                    cout << track->data;
                     return track;
                 }
             }
@@ -45,55 +42,59 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
     }
 
     //find all suffixes of the prefix and insert into vector of that ENTIRE string and its frequency
-    vector<pair<int, string>> DictionaryTrie::suffixes(TSTNode* node, string prefix){
-        
+    vector<pair<int, string>> DictionaryTrie::suffixes(TSTNode* node,  string & prefix)
+    {
         //initialize value to be returned
         vector<pair<int, string>> insert;
         
         //word to be inserted
-        string word = prefix;
+        //string word = prefix;
         
-        //go through left subtree
-        if(node->left) suffixes(node->left, prefix);
-        
-        //go through right subtree
-        if(node->right) suffixes(node->right, prefix);
-        
-        if(node->mid){
-            word += node->data;     //add suffix to prefix into word
-            if(node->mid->bword == true){   //if word-end, insert word
-                insert.push_back( make_pair( node->mid->f, word  ) );
+        if(node){
+            if(node->left) suffixes(node->left, prefix);   //left subtree
+            prefix+=(node->data);           //character of node
+            if(node->bword == true){
+                cout << prefix;
+                insert.push_back( make_pair( node->f, prefix  ) );
             }
-            suffixes(node->mid, word);    //continue down?
+            if(node->mid) suffixes(node->mid, prefix);    //mid subtree
+            prefix.pop_back();
+            if(node->right) suffixes(node->right, prefix);  //right
         }
+        cout << insert[1].second;
         return insert;
+        
     }
 
-    
-    bool DictionaryTrie::pairComparison(const pair<string, int> &x, const pair<string, int> &y){
-        return x.second > y.second;
-    }
 
     /* TODO */
     vector<string> DictionaryTrie::predictCompletions(string prefix,
                                                       unsigned int numCompletions) {
         vector<string> result;
         TSTNode* startNode = start(root, prefix);   //find node to start at = last character of prefix
-        
+        cout << startNode->data;
         vector<pair<int, string>> suf = suffixes(startNode, prefix);    //string of every completion
-        
+        cout << suf[1].second;
+        //sort in descending order
         sort(suf.begin(), suf.end(), []( const pair<int, string> &x, const pair<int, string> &y )
              {
                  return ( x.second > y.second );
-             } );  //sorted in descending order
+             } );
         
         //remove the least frequent, leaving only numCompletions
-        suf.erase(suf.begin()+numCompletions, suf.end());
+        //suf.erase(suf.begin()+numCompletions, suf.end());
         
         //copy the strings ONLY into the vector<string>
-        for(int i = 0; i < numCompletions; i++){
-            result[i] = suf[i].first;
+        for(auto it = suf.begin(); it != suf.end(); it++){
+            auto str = it->second;
+            result.push_back(str);
         }
+        /*for(int i = 0; i < numCompletions && i<suf.size(); i++){
+            cout << suf[i].second;
+            auto str
+            result.push_back( suf[i].second );
+        }*/
+        cout << result[1];
         return result;
     }
 
@@ -208,11 +209,12 @@ DictionaryTrie::DictionaryTrie() {root = nullptr;}
         }
     }
 
-
-
-    
-
     /* TODO */
-    DictionaryTrie::~DictionaryTrie() {}
+    DictionaryTrie::~DictionaryTrie() {
+        delete root->right;
+        delete root->left;
+        delete root;
+    }
+
 
 #endif

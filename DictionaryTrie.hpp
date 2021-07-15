@@ -16,12 +16,12 @@ using namespace std;
       public:
           TSTNode(char d): data(d){
               bword = false;
-              f = NULL;
+              f = 0;
               left = mid = right = NULL;
           }
               char data;
               bool bword;
-              unsigned int f;
+                int f;
               TSTNode* left;
               TSTNode* mid;
               TSTNode* right;
@@ -40,9 +40,7 @@ public:
     
     TSTNode* start(TSTNode* node, string prefix);
 
-    vector<pair<int, string>> suffixes(TSTNode* node, string prefix);
-    
-    bool pairComparison(const pair<string, int> &x, const pair<string, int> &y);
+    vector<pair<int, string>> suffixes(TSTNode* node, string & prefix);
     
     /* TODO: add function header */
     DictionaryTrie();
